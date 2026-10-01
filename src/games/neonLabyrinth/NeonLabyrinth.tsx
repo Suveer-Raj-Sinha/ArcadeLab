@@ -158,20 +158,6 @@ export default function NeonLabyrinth() {
     setNotice(`LEVEL ${nextLevel}: NEW MAZE GENERATED`);
   }, []);
 
-  // const finishGame = useCallback(() => {
-  //   if (gameOverRef.current) return;
-  //   gameOverRef.current = true;
-  //   startedRef.current = false;
-  //   setIsGameOver(true);
-  //   setHasStarted(false);
-  //   sounds.gameOver();
-  //   const finalScore = scoreRef.current;
-  //   const isBest = finalScore > bestAtStartRef.current;
-  //   setIsNewBest(isBest);
-  //   if (isBest) savePersonalBest(GAME_ID, finalScore);
-  //   incrementGamesPlayed(GAME_ID);
-  // }, [incrementGamesPlayed, savePersonalBest]);
-
   const restartGame = useCallback(() => {
     const freshMaze = generateMaze(1);
     mazeRef.current = freshMaze;
