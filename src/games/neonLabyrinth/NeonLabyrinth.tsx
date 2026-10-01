@@ -96,21 +96,52 @@ function generateMaze(level: number): MazeData {
   }
 
   const start = { x: 1, y: 1 };
-  const exit = { x: width - 2, y: height - 2 };
-  const reachableCells: Point[] = [];
-  for (let y = 1; y < height; y += 2) {
-    for (let x = 1; x < width; x += 2) {
-      if (x === start.x && y === start.y) continue;
-      if (x === exit.x && y === exit.y) continue;
-      reachableCells.push({ x, y });
+
+  // Run BFS over the carved corridors. This validates reachability using the
+  // same tile grid that the player actually traverses.
+  const distance = Array.from({ length: height }, () => Array<number>(width).fill(-1));
+  const queue: Point[] = [start];
+  distance[start.y][start.x] = 0;
+  let queueIndex = 0;
+  const tileDirections = [
+    { x: 0, y: -1 },
+    { x: 1, y: 0 },
+    { x: 0, y: 1 },
+    { x: -1, y: 0 },
+  ];
+
+  while (queueIndex < queue.length) {
+    const current = queue[queueIndex++];
+    for (const direction of tileDirections) {
+      const nx = current.x + direction.x;
+      const ny = current.y + direction.y;
+      if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+      if (grid[ny][nx] === 'wall' || distance[ny][nx] !== -1) continue;
+      distance[ny][nx] = distance[current.y][current.x] + 1;
+      queue.push({ x: nx, y: ny });
     }
   }
 
-  // Put the exit in a reachable dead-end-ish far corner and collectibles only
-  // on carved cell centers, so they can never spawn inside walls.
+  // Only use reachable cell centers for objectives. Place the exit at the
+  // farthest reachable center, rather than assuming a corner is reachable.
+  const reachableCells: Point[] = [];
+  for (let y = 1; y < height; y += 2) {
+    for (let x = 1; x < width; x += 2) {
+      if (distance[y][x] >= 0 && !(x === start.x && y === start.y)) {
+        reachableCells.push({ x, y });
+      }
+    }
+  }
+
+  reachableCells.sort((a, b) => distance[b.y][b.x] - distance[a.y][a.x]);
+  const exit = reachableCells.shift() ?? { x: width - 2, y: height - 2 };
   grid[exit.y][exit.x] = 'exit';
-  const fragmentsTotal = Math.min(5 + Math.floor((level - 1) / 2), 12);
-  const fragmentSpots = shuffle(reachableCells).slice(0, Math.min(fragmentsTotal, reachableCells.length));
+
+  // Place fragments only on BFS-verified reachable cells, spread across the
+  // maze so they aren't all clustered in one area. The exit is excluded.
+  const fragmentCandidates = shuffle(reachableCells);
+  const desiredFragments = Math.min(5 + Math.floor((level - 1) / 2), 12);
+  const fragmentSpots = fragmentCandidates.slice(0, Math.min(desiredFragments, fragmentCandidates.length));
   for (const point of fragmentSpots) grid[point.y][point.x] = 'fragment';
 
   return { grid, width, height, start, exit, fragmentsTotal: fragmentSpots.length };
