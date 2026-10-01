@@ -2,6 +2,20 @@ import { Link } from 'react-router-dom';
 
 const GAMES = [
   {
+  id: 'cyber-maze',
+  name: 'Cyber Maze',
+  description: 'Navigate to survive',
+  path: '/games/cyberMaze',
+  color: 'neon-cyan',
+  },
+  {
+    id: 'neon-labyrinth',
+    name: 'Neon Labyrinth',
+    description: 'Navigate the neon maze.',
+    path: '/games/neonLabyrinth',
+    color: 'neon-pink',
+  },
+  {
     id: 'snake',
     name: 'SNAKE',
     description: 'Classic grid-based survival.',
@@ -140,7 +154,8 @@ const GAMES = [
     description: 'Survive the 3D vortex.',
     path: '/games/tunnel',
     color: 'neon-pink',
-  }
+  },
+  
 ];
 
 export default function Home() {

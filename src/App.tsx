@@ -22,6 +22,8 @@ import GravitySwitch from './games/gravity/GravitySwitch';
 import EndlessRunner from './games/runner/EndlessRunner';
 import TunnelRush from './games/tunnel/TunnelRush';
 import Creator from './pages/Creator';
+import CyberMaze from './games/cyberMaze/CyberMaze';
+import NeonLabyrinth from './games/neonLabyrinth/NeonLabyrinth';
 
 function App() {
   return (
@@ -49,6 +51,8 @@ function App() {
           <Route path="games/gravity" element={<GravitySwitch />} />
           <Route path="games/runner" element={<EndlessRunner />} />
           <Route path="games/tunnel" element={<TunnelRush />} />
+          <Route path="games/cyberMaze" element={<CyberMaze />} />
+          <Route path="games/neonLabyrinth" element={<NeonLabyrinth />} />
           <Route path="creator" element={<Creator />} />
         </Route>
       </Routes>
