@@ -49,4 +49,4 @@ ArcadeLab is a premium, modern digital arcade built entirely with React, TypeScr
 
 ## 📚 Game Documentation
 
-For a deep dive into the mechanics, logic, controls, and instructions for every single game in ArcadeLab, please see the [GAMES.md](./GAMES.md) file.
+For a deep dive into the mechanics, logic, controls, and instructions for every single game in ArcadeLab, please see the [GAMES.md](./GAMES.md) file
