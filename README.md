@@ -4,7 +4,7 @@ ArcadeLab is a premium, modern digital arcade built entirely with React, TypeScr
 
 ## ✨ Features
 
-- **20 Complete Games**: A massive collection spanning puzzles, shooters, platformers, and arcade classics.
+- **20+ Complete Games**: A massive collection spanning puzzles, shooters, platformers, and arcade classics.
 - **Unified Engine**: All games run on a highly optimized, custom `useGameLoop` hook that detaches rendering from the React state cycle for a buttery-smooth 60 FPS experience.
 - **Procedural Sound**: Audio is generated dynamically via the Web Audio API—no external sound files required!
 - **CRT Mode**: Toggleable retro scanlines, vignette, and screen curvature.

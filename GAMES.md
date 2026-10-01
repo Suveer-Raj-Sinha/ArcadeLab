@@ -138,3 +138,17 @@ Here is the complete breakdown of every game, its logic, controls, and instructi
 - **Difficulty Scaling:** Forward Z-speed increases with distance, and the entire tunnel gradually begins to rotate faster to disorient the player.
 - **Controls:** `Arrow Left / Right` to spin around the tunnel walls.
 - **Goal:** Dodge the oncoming barriers in the vortex.
+
+## 21. NEON LABYRINTH
+- **Type:** Procedural Maze / Canvas
+- **Logic:** A maze is generated randomly using a randomized Depth-First Search (DFS) algorithm. The player navigates connected corridors, collecting data fragments and locating the exit. Each completed maze generates a new layout, with maze dimensions gradually increasing as the player progresses.
+- **Difficulty Scaling:** Starts with a 10×5 logical-cell maze. The maze grows wider and taller every few levels, increasing exploration time and navigation complexity.
+- **Controls:** `Arrow Keys / WASD` to steer. Movement continues automatically in the selected direction until blocked or redirected. `R` to generate a new maze.
+- **Goal:** Collect all required data fragments to unlock the exit. Reach the exit to advance to the next randomly generated maze and achieve the highest possible score.
+
+## 22. CYBER MAZE (PAC-MAN STYLE)
+- **Type:** Grid / Canvas AI
+- **Logic:** A maze-based arcade game inspired by Pac-Man. The player navigates corridors to collect pellets while avoiding AI-controlled ghosts. Ghosts use pathfinding logic to chase the player or patrol the maze. Collision detection checks interactions between the player and ghosts, while power-ups temporarily allow the player to defeat ghosts.
+- **Difficulty Scaling:** Ghost movement speed and pursuit difficulty increase as the player progresses. Completing a maze advances the player to a new level with a more challenging layout.
+- **Controls:** `Arrow Keys / WASD` to navigate the maze.
+- **Goal:** Collect all pellets while avoiding ghosts. Use power-ups strategically, clear the maze, and progress through as many levels as possible without losing all lives.
