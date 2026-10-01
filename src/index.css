@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Cyber-Retro Color Palette */
+  --color-cyber-bg: #0a0514;
+  --color-cyber-panel: #130a24;
+  --color-cyber-panel-raised: #1c0f33;
+  --color-cyber-line: #2a1b40;
+  
+  --color-neon-cyan: #00e5ff;
+  --color-neon-pink: #ff007f;
+  
+  --color-text-main: #e0d8f0;
+  --color-text-muted: #8a7b9e;
+  
+  /* Custom Box Shadows for Neon Glows */
+  --shadow-neon-cyan: 0 0 10px rgba(0, 229, 255, 0.5), 0 0 20px rgba(0, 229, 255, 0.3);
+  --shadow-neon-pink: 0 0 10px rgba(255, 0, 127, 0.5), 0 0 20px rgba(255, 0, 127, 0.3);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cyber-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Hide default cursor on desktop when custom cursor is active */
+  @media (pointer: fine) {
+    body.custom-cursor-enabled, 
+    body.custom-cursor-enabled * {
+      cursor: none !important;
+    }
+  }
+
+  /* --- CRT EFFECTS --- */
+  .crt-mode::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+    background-size: 100% 4px;
+    z-index: 9998;
+    pointer-events: none;
+    animation: scanlines 10s linear infinite;
+  }
+  
+  .crt-mode::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  /* --- AMBIENT BACKGROUND --- */
+  .ambient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: 
+      linear-gradient(var(--color-cyber-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-cyber-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center center;
+    opacity: 0.15;
+    mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+    animation: grid-move 20s linear infinite;
+  }
+
+  /* --- CUSTOM SCROLLBAR --- */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-cyber-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-cyber-line);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neon-pink);
+  }
+}
+
+@layer utilities {
+  .text-glow-cyan { text-shadow: 0 0 10px rgba(0,229,255,0.8); }
+  .text-glow-pink { text-shadow: 0 0 10px rgba(255,0,127,0.8); }
+}
+
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
+@keyframes grid-move {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(40px); }
+}
+
+@keyframes score-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); color: var(--color-neon-cyan); }
+  100% { transform: scale(1); }
+}
