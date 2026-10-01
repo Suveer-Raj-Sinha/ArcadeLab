@@ -152,7 +152,7 @@ export default function Tetris() {
 
   const playerRotate = (dir: number) => {
     const clonedPlayer = { ...player, matrix: rotate(player.matrix, dir) };
-    const pos = clonedPlayer.pos.x;
+    // const pos = clonedPlayer.pos.x;
     let offset = 1;
     // Wall kick simple implementation
     while (collide(board, clonedPlayer)) {

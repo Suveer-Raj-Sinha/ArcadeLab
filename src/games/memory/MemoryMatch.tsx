@@ -51,7 +51,7 @@ export default function MemoryMatch() {
   const [cards, setCards] = useState<Card[]>([]);
   const [flippedIds, setFlippedIds] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
-  const [matches, setMatches] = useState(0);
+  const [, setMatches] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
   

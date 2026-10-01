@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { GameShell } from '../../components/game/GameShell';
 import { GameOverScreen } from '../../components/game/GameOverScreen';
-import { useKeyboard } from '../../hooks/useKeyboard';
+// import { useKeyboard } from '../../hooks/useKeyboard';
 import { useGameLoop } from '../../hooks/useGameLoop';
 import { useLocalArcadeData } from '../../hooks/useLocalArcadeData';
 import { sounds } from '../../utils/audio';
