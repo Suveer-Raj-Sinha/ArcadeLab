@@ -131,7 +131,6 @@ export default function NeonLabyrinth() {
   const timeRef = useRef(0);
   const bestAtStartRef = useRef(0);
 
-  const { getPersonalBest, savePersonalBest, incrementGamesPlayed } = useLocalArcadeData();
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
   const [fragments, setFragments] = useState(0);
