@@ -1,12 +1,12 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { Gamepad2, Volume2, VolumeX, MonitorPlay } from 'lucide-react';
+import { Volume2, VolumeX, MonitorPlay } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { toggleMute, isMuted, startBGM, sounds } from '../../utils/audio';
 
 function CustomCursor() {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number | null>(null);
   const targetPos = useRef({ x: -100, y: -100 });
 
   useEffect(() => {

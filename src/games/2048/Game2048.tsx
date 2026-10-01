@@ -191,7 +191,7 @@ export default function Game2048() {
   const [isNewBest, setIsNewBest] = useState(false);
   const [history, setHistory] = useState<{ grid: Grid; score: number }[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
-  const animTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const bestScore = getPersonalBest(GAME_ID);
 

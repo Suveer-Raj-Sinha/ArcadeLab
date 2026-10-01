@@ -18,7 +18,7 @@ export default function ReactionTest() {
 
   const bestScore = getPersonalBest(GAME_ID);
   
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const startTimeRef = useRef<number>(0);
 
   const cleanup = () => {

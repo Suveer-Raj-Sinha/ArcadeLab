@@ -1,5 +1,6 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { GameHeader } from './GameHeader';
+import type { ReactNode } from 'react';
 
 interface GameShellProps {
   title: string;
