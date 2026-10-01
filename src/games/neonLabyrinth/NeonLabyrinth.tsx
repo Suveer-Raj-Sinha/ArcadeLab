@@ -141,8 +141,12 @@ export default function NeonLabyrinth() {
   const [hasStarted, setHasStarted] = useState(false);
   const [notice, setNotice] = useState('FIND THE FRAGMENTS. REACH THE EXIT.');
 
+  const { getPersonalBest } = useLocalArcadeData();
+
   const bestScore = getPersonalBest(GAME_ID);
   bestAtStartRef.current = bestScore;
+
+  
 
   const syncMaze = useCallback((nextLevel: number) => {
     const nextMaze = generateMaze(nextLevel);
