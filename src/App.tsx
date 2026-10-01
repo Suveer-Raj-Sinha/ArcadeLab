@@ -21,6 +21,7 @@ import Helicopter from './games/helicopter/Helicopter';
 import GravitySwitch from './games/gravity/GravitySwitch';
 import EndlessRunner from './games/runner/EndlessRunner';
 import TunnelRush from './games/tunnel/TunnelRush';
+import Creator from './pages/Creator';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="games/gravity" element={<GravitySwitch />} />
           <Route path="games/runner" element={<EndlessRunner />} />
           <Route path="games/tunnel" element={<TunnelRush />} />
+          <Route path="creator" element={<Creator />} />
         </Route>
       </Routes>
     </BrowserRouter>

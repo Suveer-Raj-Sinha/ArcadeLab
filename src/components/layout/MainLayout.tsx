@@ -139,6 +139,9 @@ export default function MainLayout() {
               <Link to="/" className="text-sm font-mono text-text-muted hover:text-white transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-neon-cyan after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-right hover:after:origin-left" onClick={() => sounds.paddleHit()}>
                 [ LIBRARY ]
               </Link>
+              <Link to="/creator" className="text-sm font-mono text-text-muted hover:text-neon-pink transition-colors relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-full after:h-[2px] after:bg-neon-pink after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-right hover:after:origin-left" onClick={() => sounds.paddleHit()}>
+                [ CREATOR ]
+              </Link>
               <button 
                 onClick={handleToggleCrt}
                 className={`transition-colors focus:outline-none hover:-translate-y-[1px] ${crtMode ? 'text-neon-cyan' : 'text-text-muted hover:text-white'}`}
