@@ -209,7 +209,7 @@ export default function CyberMaze() {
     ghostsRef.current = [
       { id: 0, x: 8, y: 10, spawnX: 8, spawnY: 10, direction: 'left', color: '#ff3b8d', mode: 'chase', frightened: false, decisionTimer: 0 },
       { id: 1, x: 9, y: 10, spawnX: 9, spawnY: 10, direction: 'up', color: '#00e5ff', mode: 'ambush', frightened: false, decisionTimer: 0 },
-      { id: 2, x: 10, y: 10, spawnX: 10, spawnY: 10, direction: 'right', color: '#b66cff', mode: 'patrol', frightened: false, decisionTimer: 0 },
+      { id: 2, x: 7, y: 10, spawnX: 7, spawnY: 10, direction: 'left', color: '#b66cff', mode: 'patrol', frightened: false, decisionTimer: 0 },
       { id: 3, x: 9, y: 11, spawnX: 9, spawnY: 11, direction: 'down', color: '#ff9d42', mode: 'random', frightened: false, decisionTimer: 0 },
     ];
     powerTimerRef.current = 0;
@@ -349,11 +349,14 @@ export default function CyberMaze() {
       }
       player.mouth += dtMs * 0.012;
 
-      // Collect pellets only when centered on a tile.
-      if (atTile(player.x, player.y)) {
+      // Collect items from the tile the player currently occupies.
+      // Do not require an exact tile-center position: frame-based movement can
+      // step over the tiny atTile() tolerance and leave pellets uncollected.
+      {
         const tx = Math.round(player.x);
         const ty = Math.round(player.y);
         const tile = maze[ty]?.[tx];
+
         if (tile === 'pellet') {
           maze[ty][tx] = 'empty';
           scoreRef.current += 10;
@@ -394,15 +397,20 @@ export default function CyberMaze() {
               ? { x: 1, y: 1 }
               : { x: COLS - 2, y: ROWS - 2 };
           } else if (ghost.mode === 'random' || ghost.frightened) {
+            // Choose a legal direction, but do NOT return here:
+            // the ghost still needs to execute its movement for this frame.
             if (choices.length) {
               ghost.direction = choices[Math.floor(Math.random() * choices.length)];
             }
-            return;
+          } else {
+            const path = findPath(maze, { x: ghost.x, y: ghost.y }, target);
+            if (path.length) {
+              ghost.direction = path[0];
+            } else if (choices.length) {
+              // If the target is unreachable, keep moving through a legal exit.
+              ghost.direction = choices[Math.floor(Math.random() * choices.length)];
+            }
           }
-
-          const path = findPath(maze, { x: ghost.x, y: ghost.y }, target);
-          if (path.length) ghost.direction = path[0];
-          else if (choices.length) ghost.direction = choices[Math.floor(Math.random() * choices.length)];
         }
 
         const delta = DIRECTIONS[ghost.direction];
@@ -413,8 +421,20 @@ export default function CyberMaze() {
           ghost.x = gx;
           ghost.y = gy;
         } else {
+          // Snap back to the last tile center and immediately select a legal
+          // exit, preventing a blocked direction from being retried indefinitely.
           ghost.x = Math.round(ghost.x);
           ghost.y = Math.round(ghost.y);
+          const legal = (Object.keys(DIRECTIONS) as Direction[])
+            .filter((direction) => canMove(maze, ghost.x, ghost.y, direction));
+          const reverse: Record<Direction, Direction> = {
+            up: 'down', down: 'up', left: 'right', right: 'left',
+          };
+          const nonReverse = legal.filter((direction) => direction !== reverse[ghost.direction]);
+          const choices = nonReverse.length ? nonReverse : legal;
+          if (choices.length) {
+            ghost.direction = choices[Math.floor(Math.random() * choices.length)];
+          }
           ghost.decisionTimer = 0;
         }
       });
@@ -640,3 +660,4 @@ export default function CyberMaze() {
     </GameShell>
   );
 }
+  
